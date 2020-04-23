@@ -138,7 +138,8 @@ const App = () => {
           name="eingeloggt"
           value="login"
           onChange={() => setIsLoggedIn(l => !l)}
-        />{" "}
+        />
+        {"  "}
         <Checkbox
           checked={isCrmPerson}
           label="CRM verknüpft?"
