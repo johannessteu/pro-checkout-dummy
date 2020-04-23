@@ -13,7 +13,7 @@ import {
   Input,
   FormGroup,
   GridItem,
-  Grid,
+  Grid
 } from "@t3n/components";
 import styled from "styled-components";
 
@@ -30,7 +30,7 @@ const AdminBox = styled(Box)`
 
 const Checkout: React.FC<{ setCrm: (v: boolean) => void; isCrm: boolean }> = ({
   setCrm,
-  isCrm,
+  isCrm
 }) => {
   const [selectedProduct, setSelectedProduct] = React.useState<
     "none" | "quartal" | "jahr"
@@ -119,7 +119,7 @@ const App = () => {
   return (
     <>
       {isLoggedin ? (
-        <Checkout isCrm={isCrmPerson} setCrm={(v) => setIsCrmPerson(v)} />
+        <Checkout isCrm={isCrmPerson} setCrm={v => setIsCrmPerson(v)} />
       ) : (
         <Box
           display="flex"
@@ -137,14 +137,14 @@ const App = () => {
           label="Eingeloggt?"
           name="eingeloggt"
           value="login"
-          onChange={() => setIsLoggedIn((l) => !l)}
-        />
+          onChange={() => setIsLoggedIn(l => !l)}
+        />{" "}
         <Checkbox
           checked={isCrmPerson}
           label="CRM verknüpft?"
           name="eingeloggt"
           value="login"
-          onChange={() => setIsCrmPerson((l) => !l)}
+          onChange={() => setIsCrmPerson(l => !l)}
         />
       </AdminBox>
     </>
