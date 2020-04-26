@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Formik, FormikProps } from 'formik';
+import React from 'react';
+import { Formik } from 'formik';
 
 import {
   Box,

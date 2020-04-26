@@ -8,6 +8,7 @@ import PaymentOption, {
   PAYMENT_OPTION,
   // PAYMENT_OPTION_CREDITCARD,
   // PAYMENT_OPTION_PAYPAL,
+  CreditCardValues,
 } from './PaymentOption';
 
 const CheckoutContainer: React.FC = ({ children }) => (
@@ -43,6 +44,7 @@ const Checkout = () => {
   const [paymentOption, setPaymentOption] = useState<
     PAYMENT_OPTION | undefined
   >();
+  const [cardValues, setCardValues] = useState<CreditCardValues | null>(null);
   const [editPaymentOption, setEditPaymentOption] = useState(false);
 
   return (
@@ -89,6 +91,8 @@ const Checkout = () => {
       />
       <PaymentOption
         value={paymentOption}
+        cardValues={cardValues}
+        onCardValuesChange={setCardValues}
         onSelect={setPaymentOption}
         onSubmit={() => {
           setEditPaymentOption(false);
