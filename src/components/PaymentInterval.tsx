@@ -16,7 +16,10 @@ import {
 
 import CheckoutSection from './CheckoutSection';
 
-const OptionRadioButton = styled.input.attrs({ type: 'radio' })``;
+const OptionRadioButton = styled.input.attrs({
+  type: 'radio',
+  readOnly: true,
+})``;
 
 const OptionCardContainer = styled(Card)`
   ${({ theme }) => color({ theme, bg: 'background.secondary' })}
@@ -121,9 +124,21 @@ const PaymentIntervalOverview = ({
       Zahlungsinterval
     </Heading>
     {value === PAYMENT_INTERVAL_YEARLY ? (
-      <Text bold>Jährlich</Text>
+      <Text>
+        <Text inline bold>
+          Jährlich
+        </Text>
+        <br />
+        199€ / Jahr
+      </Text>
     ) : PAYMENT_INTERVAL_QUARTERLY ? (
-      <Text bold>Monatlich</Text>
+      <Text>
+        <Text inline bold>
+          Quartal
+        </Text>
+        <br />
+        49€ / Quartal
+      </Text>
     ) : (
       ''
     )}

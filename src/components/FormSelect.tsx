@@ -1,11 +1,13 @@
+import React, { SelectHTMLAttributes } from 'react';
 import styled from 'styled-components';
-import { color, variant } from 'styled-system';
+import { useField } from 'formik';
+import { variant } from 'styled-system';
 
 import { ThemeProps } from '@t3n/theme';
 
-const FormSelect = styled.select`
+export const StyledFormSelect = styled.select`
   width: 100%;
-  ${({ theme }: ThemeProps) => color({ theme, bg: 'background.primary' })}
+  background: white;
   border-radius: ${({ theme }: ThemeProps) => theme.border.radii[1]};
   border: 1px solid ${({ theme }: ThemeProps) => theme.colors.shades.grey143};
   ${({ theme }: ThemeProps) =>
@@ -22,5 +24,14 @@ const FormSelect = styled.select`
     outline: 0;
   }
 `;
+
+const FormSelect = ({
+  name,
+  ...props
+}: SelectHTMLAttributes<HTMLSelectElement>) => {
+  const [field] = useField(name || '');
+
+  return <StyledFormSelect name={name} {...props} {...field} />;
+};
 
 export default FormSelect;
