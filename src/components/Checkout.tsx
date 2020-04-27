@@ -38,19 +38,18 @@ const getDiscountCodeFromURL = () => {
 };
 
 const Checkout = () => {
-  const urlDiscountCode = getDiscountCodeFromURL();
-
   // Payment Interval
-  const [discountCode, setDiscountCode] = useState(
+  const urlDiscountCode = getDiscountCodeFromURL();
+  const validUrlDiscountCode =
     urlDiscountCode && discountCodes.includes(urlDiscountCode.toUpperCase())
       ? urlDiscountCode.toUpperCase()
-      : ''
-  );
+      : '';
+  const [discountCode, setDiscountCode] = useState(urlDiscountCode || '');
   const [paymentInterval, setPaymentInterval] = useState<
     PaymentIntervalType | undefined
   >();
   const [editPaymentInterval, setEditPaymentInterval] = useState(
-    !urlDiscountCode
+    !validUrlDiscountCode
   );
 
   // Contact Details
@@ -61,7 +60,7 @@ const Checkout = () => {
   ] = useState<ContactFormValues | null>(null);
   const [useAlternateAddress, setUseAlternateAddress] = useState(false);
   const [editContactDetails, setEditContactDetails] = useState(
-    !!urlDiscountCode
+    !!validUrlDiscountCode
   );
 
   // Payment Option
