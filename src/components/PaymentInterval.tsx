@@ -128,6 +128,7 @@ const PaymentIntervalSelect = ({
           <Input
             type="text"
             name="discountcode"
+            defaultValue={discountCode}
             onChange={(e) => onDiscountCodeChange(e.currentTarget.value)}
           />
         </form>

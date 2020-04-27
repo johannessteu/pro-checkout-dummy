@@ -24,13 +24,25 @@ const CheckoutContainer: React.FC = ({ children }) => (
   </Box>
 );
 
+const getDiscountCodeFromURL = () => {
+  const match = window.location.search.match(/\?discountcode=([a-zA-Z0-9]+)$/);
+
+  console.log(match);
+
+  if (match) return match[1];
+};
+
 const Checkout = () => {
+  const urlDiscountCode = getDiscountCodeFromURL();
+
   // Payment Interval
+  const [discountCode, setDiscountCode] = useState(urlDiscountCode || '');
   const [paymentInterval, setPaymentInterval] = useState<
     PaymentIntervalType | undefined
   >();
-  const [editPaymentInterval, setEditPaymentInterval] = useState(true);
-  const [discountCode, setDiscountCode] = useState('');
+  const [editPaymentInterval, setEditPaymentInterval] = useState(
+    !urlDiscountCode
+  );
 
   // Contact Details
   const [address, setAddress] = useState<ContactFormValues | null>(null);
@@ -39,7 +51,9 @@ const Checkout = () => {
     setAlternateAddress,
   ] = useState<ContactFormValues | null>(null);
   const [useAlternateAddress, setUseAlternateAddress] = useState(false);
-  const [editContactDetails, setEditContactDetails] = useState(false);
+  const [editContactDetails, setEditContactDetails] = useState(
+    !!urlDiscountCode
+  );
 
   // Payment Option
   const [paymentOption, setPaymentOption] = useState<
