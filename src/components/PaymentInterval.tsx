@@ -189,7 +189,7 @@ const PaymentIntervalOverview = ({
           Jährlich (25% Rabatt)
         </Text>
         <br />
-        250€ / Jahr
+        149€ / Jahr
       </Text>
     ) : value === PAYMENT_INTERVAL_YEARLY ? (
       <Text>
