@@ -130,6 +130,11 @@ const PaymentIntervalSelect = ({
             type="text"
             name="discountcode"
             defaultValue={discountCode}
+            error={
+              discountCode
+                ? !discountCodes.includes(discountCode.toUpperCase())
+                : false
+            }
             onChange={(e) => {
               const newDiscountCode = e.currentTarget.value;
 
@@ -140,11 +145,6 @@ const PaymentIntervalSelect = ({
                 e.target.setAttribute(
                   'style',
                   `border-color: ${theme.colors.feedback.success};`
-                );
-              } else if (newDiscountCode) {
-                e.target.setAttribute(
-                  'style',
-                  `border-color: ${theme.colors.feedback.error};`
                 );
               } else {
                 e.target.setAttribute('style', '');

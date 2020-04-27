@@ -30,8 +30,6 @@ const CheckoutContainer: React.FC = ({ children }) => (
 const getDiscountCodeFromURL = () => {
   const match = window.location.search.match(/\?discountcode=([a-zA-Z0-9]+)$/);
 
-  console.log(match);
-
   if (match) return match[1];
 
   return '';
