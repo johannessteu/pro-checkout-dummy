@@ -2,7 +2,10 @@ import React, { useState } from 'react';
 
 import { Box, Button } from '@t3n/components';
 
-import PaymentInterval, { PaymentIntervalType } from './PaymentInterval';
+import PaymentInterval, {
+  PaymentIntervalType,
+  discountCodes,
+} from './PaymentInterval';
 import ContactDetails, { ContactFormValues } from './ContactDetails';
 import PaymentOption, {
   PAYMENT_OPTION,
@@ -30,13 +33,19 @@ const getDiscountCodeFromURL = () => {
   console.log(match);
 
   if (match) return match[1];
+
+  return '';
 };
 
 const Checkout = () => {
   const urlDiscountCode = getDiscountCodeFromURL();
 
   // Payment Interval
-  const [discountCode, setDiscountCode] = useState(urlDiscountCode || '');
+  const [discountCode, setDiscountCode] = useState(
+    urlDiscountCode && discountCodes.includes(urlDiscountCode.toUpperCase())
+      ? urlDiscountCode.toUpperCase()
+      : ''
+  );
   const [paymentInterval, setPaymentInterval] = useState<
     PaymentIntervalType | undefined
   >();
