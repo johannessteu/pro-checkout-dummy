@@ -13,6 +13,7 @@ import {
   Grid,
   GridItem,
 } from '@t3n/components';
+import { theme } from '@t3n/theme';
 
 import CheckoutSection from './CheckoutSection';
 
@@ -129,7 +130,27 @@ const PaymentIntervalSelect = ({
             type="text"
             name="discountcode"
             defaultValue={discountCode}
-            onChange={(e) => onDiscountCodeChange(e.currentTarget.value)}
+            onChange={(e) => {
+              const newDiscountCode = e.currentTarget.value;
+
+              if (
+                newDiscountCode &&
+                discountCodes.includes(newDiscountCode.toUpperCase())
+              ) {
+                e.target.setAttribute(
+                  'style',
+                  `border-color: ${theme.colors.feedback.success};`
+                );
+              } else if (newDiscountCode) {
+                e.target.setAttribute(
+                  'style',
+                  `border-color: ${theme.colors.feedback.error};`
+                );
+              } else {
+                e.target.setAttribute('style', '');
+              }
+              onDiscountCodeChange(newDiscountCode);
+            }}
           />
         </form>
       </Box>
