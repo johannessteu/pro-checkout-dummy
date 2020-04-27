@@ -30,6 +30,7 @@ const Checkout = () => {
     PaymentIntervalType | undefined
   >();
   const [editPaymentInterval, setEditPaymentInterval] = useState(true);
+  const [discountCode, setDiscountCode] = useState('');
 
   // Contact Details
   const [address, setAddress] = useState<ContactFormValues | null>(null);
@@ -51,8 +52,10 @@ const Checkout = () => {
     <CheckoutContainer>
       <PaymentInterval
         value={paymentInterval}
+        discountCode={discountCode}
         inEditMode={editPaymentInterval}
-        onSelect={(value) => setPaymentInterval(value)}
+        onSelect={setPaymentInterval}
+        onDiscountCodeChange={setDiscountCode}
         onSubmit={() => {
           setEditPaymentInterval(false);
 

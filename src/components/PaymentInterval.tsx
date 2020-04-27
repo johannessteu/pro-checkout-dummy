@@ -16,6 +16,13 @@ import {
 
 import CheckoutSection from './CheckoutSection';
 
+export const DISCOUNTCODE_SUBSCRIBER10 = 'SUBSCRIBER10';
+export const DISCOUNTCODE_SUBSCRIBER25 = 'SUBSCRIBER25';
+export const discountCodes = [
+  DISCOUNTCODE_SUBSCRIBER10,
+  DISCOUNTCODE_SUBSCRIBER25,
+];
+
 const OptionRadioButton = styled.input.attrs({
   type: 'radio',
   readOnly: true,
@@ -63,12 +70,16 @@ export const PAYMENT_INTERVAL_YEARLY = 'PAYMENT_INTERVAL_YEARLY';
 
 interface PaymentIntervalSelectInterface {
   value?: PaymentIntervalType;
+  discountCode: string;
   onSelect: (value?: PaymentIntervalType) => void;
+  onDiscountCodeChange: (value: string) => void;
   onSubmit: (value?: PaymentIntervalType) => void;
 }
 
 const PaymentIntervalSelect = ({
   value,
+  discountCode,
+  onDiscountCodeChange,
   onSelect,
   onSubmit,
 }: PaymentIntervalSelectInterface) => {
@@ -77,7 +88,7 @@ const PaymentIntervalSelect = ({
       <Heading as="h3" mt={0}>
         Wie möchtest du zahlen?
       </Heading>
-      <Grid mb={4}>
+      <Grid>
         <GridItem width={1 / 2}>
           <OptionCard
             label="Quartal"
@@ -103,6 +114,24 @@ const PaymentIntervalSelect = ({
           </OptionCard>
         </GridItem>
       </Grid>
+      <Box mb={4}>
+        <Text bold style={{ whiteSpace: 'nowrap' }} my={0} mr={2}>
+          oder Rabattcode eingeben:
+        </Text>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+
+            onSubmit(value);
+          }}
+        >
+          <Input
+            type="text"
+            name="discountcode"
+            onChange={(e) => onDiscountCodeChange(e.currentTarget.value)}
+          />
+        </form>
+      </Box>
       <Box display="flex" justifyContent="flex-end">
         <Button onClick={() => onSubmit(value)}>Weiter</Button>
       </Box>
@@ -111,19 +140,36 @@ const PaymentIntervalSelect = ({
 };
 
 interface PaymentIntervalOverview
-  extends Pick<PaymentIntervalSelectInterface, 'value'> {
+  extends Pick<PaymentIntervalSelectInterface, 'value' | 'discountCode'> {
   onEditClick: () => void;
 }
 
 const PaymentIntervalOverview = ({
   value,
+  discountCode,
   onEditClick,
 }: PaymentIntervalOverview) => (
   <Box>
     <Heading as="h3" mt={0}>
       Zahlungsinterval
     </Heading>
-    {value === PAYMENT_INTERVAL_YEARLY ? (
+    {discountCode.toUpperCase() === DISCOUNTCODE_SUBSCRIBER10 ? (
+      <Text>
+        <Text inline bold>
+          Jährlich (10% Rabatt)
+        </Text>
+        <br />
+        180€ / Jahr
+      </Text>
+    ) : discountCode.toUpperCase() === DISCOUNTCODE_SUBSCRIBER25 ? (
+      <Text>
+        <Text inline bold>
+          Jährlich (25% Rabatt)
+        </Text>
+        <br />
+        250€ / Jahr
+      </Text>
+    ) : value === PAYMENT_INTERVAL_YEARLY ? (
       <Text>
         <Text inline bold>
           Jährlich
@@ -153,6 +199,8 @@ const PaymentIntervalOverview = ({
 const PaymentInterval = ({
   inEditMode,
   value,
+  discountCode,
+  onDiscountCodeChange,
   onSelect,
   onSubmit,
   onEditClick,
@@ -162,11 +210,17 @@ const PaymentInterval = ({
     {inEditMode ? (
       <PaymentIntervalSelect
         value={value}
+        discountCode={discountCode}
+        onDiscountCodeChange={onDiscountCodeChange}
         onSelect={onSelect}
         onSubmit={onSubmit}
       />
     ) : (
-      <PaymentIntervalOverview value={value} onEditClick={onEditClick} />
+      <PaymentIntervalOverview
+        value={value}
+        discountCode={discountCode}
+        onEditClick={onEditClick}
+      />
     )}
   </CheckoutSection>
 );
