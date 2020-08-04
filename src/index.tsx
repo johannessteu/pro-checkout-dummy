@@ -13,6 +13,7 @@ function Root() {
       <>
         <GlobalStyle />
         <AppGlobalStyle />
+        <div>Das ist ein Test</div>
         <App />
       </>
     </ThemeProvider>
